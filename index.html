@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dormitory Booking System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f5;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header img {
+            width: 150px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .admin-login {
+            background-color: #e86025;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+        }
+
+        /* Main Section */
+        .main {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+        }
+
+        .main-left {
+            max-width: 50%;
+        }
+
+        .main-left h1 {
+            font-size: 36px;
+            color: #000;
+        }
+
+        .main-left h2 {
+            color: #f7931e;
+            font-size: 28px;
+        }
+
+        .main-left p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn-book {
+            background-color: #f7931e;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Login Section */
+        .login-container {
+            background-color: #c8bab0;
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+        }
+
+        .login-container h2 {
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-container input::placeholder {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .login-container .btn-login {
+            background-color: #f7931e;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .login-container .register-link {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .login-container .register-link a {
+            color: #f7931e;
+            text-decoration: none;
+        }
+
+    </style>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
+  
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
+            authDomain: "project-45ba6.firebaseapp.com",
+            projectId: "project-45ba6",
+            storageBucket: "project-45ba6.appspot.com",
+            messagingSenderId: "358009895608",
+            appId: "1:358009895608:web:bf06f7c690783f4d3d524d",
+            measurementId: "G-SD3GLMJTNZ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+
+        // Function for login
+        function loginUser(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            // Login with Firebase Authentication
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert('Login successful!');
+                    window.location.href = 'home.html'; // Redirect after successful login
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    alert(`Error: ${errorMessage}`);
+                });
+        }
+
+        window.addEventListener('load', () => {
+            document.querySelector('form').addEventListener('submit', loginUser);
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="https://via.placeholder.com/150" alt="Dormitory Room Logo">
+        <nav class="nav">
+            <a href="#">หน้าหลัก</a>
+            <a href="#">หอพัก</a>
+            <a href="#">รีวิว</a>
+            <a href="#">รายงานปัญหา</a>
+            <a href="#" class="admin-login">Addmin Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="main">
+        <!-- Left Section (Text and Button) -->
+        <div class="main-left">
+            <h1>ระบบจองหอพัก</h1>
+            <h2>Dormitory booking system</h2>
+            <p>
+                ระบบจองหอพักออนไลน์ เว็บไซต์สำหรับเลือกจองหอพัก เพื่อตอบสนองความต้องการเพื่อความสะดวกสบายและความปลอดภัย เพิ่มทางเลือกการตัดสินใจในการเข้าพัก
+            </p>
+            <button class="btn-book">จองเลย</button>
+        </div>
+
+        <!-- Login Form Section -->
+        <div class="login-container">
+            <h2>ลงชื่อเข้าใช้</h2>
+            <form>
+                <input type="email" placeholder="Enter Email" name="email" required>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button type="submit" class="btn-login">ลงชื่อเข้าใช้</button>
+            </form>
+            <div class="register-link">
+                <p>ยังไม่มีบัญชี ? <a href="register.html">สมัครสมาชิก</a></p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

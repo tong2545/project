@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หอพัก - ดูรายละเอียด</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            width: 150px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #f7931e;
+        }
+
+        .menu-icon {
+            width: 30px;
+            cursor: pointer;
+        }
+
+        /* Main Dormitory Section */
+        .banner img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .gallery img {
+            width: 120px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-section {
+            padding: 20px;
+            background-color: #fff;
+            margin: 20px 5%;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .details-section p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Amenities Section */
+        .amenities {
+            background-color: #f0f8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .amenities h3 {
+            margin-bottom: 10px;
+        }
+
+        .amenities ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .amenities ul li {
+            text-align: center;
+            width: 100px;
+        }
+
+        .amenities ul li img {
+            width: 40px;
+            margin-bottom: 5px;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background-color: #dfeedd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pricing-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .pricing-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pricing-section ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Button Section */
+        .book-btn {
+            background-color: #f7931e;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 200px;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .back-btn {
+            background-color: #ffcc00;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="https://via.placeholder.com/150" alt="Dormitory Room Logo">
+        <nav class="nav">
+            <a href="#">หน้าหลัก</a>
+            <a href="#">หอพัก</a>
+            <a href="#">รีวิว</a>
+            <a href="#">รายงานปัญหา</a>
+        </nav>
+        <img src="https://via.placeholder.com/30" alt="Menu" class="menu-icon">
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <img src="https://via.placeholder.com/1200x300" alt="Dormitory Image">
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="gallery">
+        <img src="https://via.placeholder.com/120" alt="Dormitory 1">
+        <img src="https://via.placeholder.com/120" alt="Dormitory 2">
+        <img src="https://via.placeholder.com/120" alt="Dormitory 3">
+        <img src="https://via.placeholder.com/120" alt="Dormitory 4">
+    </section>
+
+    <!-- Dormitory Details Section -->
+    <section class="details-section">
+        <a href="/home.html" class="back-btn">ย้อนกลับ</a>
+        <h2>ชื่อหอพัก: ฮิล แอนด์ ฮิล</h2>
+        <p>ที่อยู่: ถนนมหาวิทยาลัย สงขลา</p>
+
+        <!-- Amenities Section -->
+        <div class="amenities">
+            <h3>สิ่งอำนวยความสะดวก</h3>
+            <ul>
+                <li><img src="https://via.placeholder.com/40" alt="TV"><br>ทีวี</li>
+                <li><img src="https://via.placeholder.com/40" alt="AC"><br>แอร์</li>
+                <li><img src="https://via.placeholder.com/40" alt="Wi-Fi"><br>Wi-Fi ฟรี</li>
+                <li><img src="https://via.placeholder.com/40" alt="Parking"><br>ที่จอดรถ</li>
+            </ul>
+        </div>
+
+        <!-- Pricing Section -->
+        <div class="pricing-section">
+            <h3>ค่าบริการเพิ่มเติม</h3>
+            <ul>
+                <li>Wifi: 180 บาท/เดือน</li>
+                <li>น้ำ: 100 บาท/เดือน</li>
+                <li>ไฟฟ้า: 5 บาท/ยูนิต</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Book Now Button -->
+    <a href="jong.html" class="book-btn">จองเลย</a>
+
+</body>
+</html>

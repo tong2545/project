@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Dormitory Booking</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f5;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header img {
+            width: 150px;
+        }
+
+        .header a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            margin-right: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #c8bab0;
+            width: 700px;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 50px auto;
+        }
+
+        .form-container h2 {
+            font-size: 24px;
+            color: #000;
+        }
+
+        .form-container p {
+            color: #f7931e;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            width: 48%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group input::placeholder {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .btn-register {
+            background-color: #f7931e;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-register:hover {
+            background-color: #e68015;
+        }
+    </style>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
+            authDomain: "project-45ba6.firebaseapp.com",
+            projectId: "project-45ba6",
+            storageBucket: "project-45ba6.appspot.com",
+            messagingSenderId: "358009895608",
+            appId: "1:358009895608:web:bf06f7c690783f4d3d524d",
+            measurementId: "G-SD3GLMJTNZ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+
+        // Function for registering new users
+        function registerUser(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form values
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            // Register user with Firebase Authentication
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert('Registration successful! You are now registered.');
+                    // Redirect or handle after successful registration
+                    window.location.href = 'login.html'; // Redirect to login page or another page
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(`Error: ${errorMessage}`);
+                });
+        }
+
+        // Attach event listener to the form submit
+        window.addEventListener('load', () => {
+            document.querySelector('form').addEventListener('submit', registerUser);
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="https://via.placeholder.com/150" alt="Dormitory Room Logo">
+        <a href="#">หน้าหลัก</a>
+    </header>
+
+    <!-- Registration Form Section -->
+    <section class="form-container">
+        <h2>สมัครสมาชิก : <span style="color: #f7931e;">สำหรับนิสิต/บุคคลทั่วไป/เจ้าของหอ</span></h2>
+
+        <form>
+            <div class="form-group">
+                <input type="text" name="firstname" placeholder="ชื่อจริง / FirstName" required>
+                <input type="text" name="lastname" placeholder="นามสกุล / LastName" required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" name="email" placeholder="อีเมล์ / Email" required>
+                <input type="password" name="password" placeholder="รหัสผ่าน / Password" required>
+            </div>
+
+            <div class="form-group">
+                <input type="tel" name="phone" placeholder="เบอร์โทร / Tel." required>
+                <input type="text" name="address" placeholder="ที่อยู่ / Address" required>
+            </div>
+
+            <div class="form-group">
+                <select name="status" required>
+                    <option value="general">บุคคลทั่วไป</option>
+                    <option value="owner">เจ้าของหอ</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-register">สมัครสมาชิก</button>
+        </form>
+    </section>
+
+</body>
+</html>
