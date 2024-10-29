@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รีวิวหอพัก</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between; /* ให้โลโก้อยู่ซ้าย เมนูอยู่ตรงกลาง */
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            width: 120px;
+        }
+
+        .nav-container {
+            flex-grow: 1; /* ขยายพื้นที่เพื่อดันเมนูให้อยู่ตรงกลาง */
+            display: flex;
+            justify-content: center; /* จัดเมนูให้อยู่กลางแนวนอน */
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #f7931e;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block;
+        }
+        /* CSS Hamburger Menu Icon */
+        .menu-icon {
+            width: 30px;
+            height: 3px;
+            background-color: black;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            background-color: black;
+            width: 30px;
+            height: 3px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .menu-icon::before {
+            top: -8px;
+        }
+
+        .menu-icon::after {
+            top: 8px;
+        }
+
+        /* Review Section */
+        .review-section {
+            margin: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-title {
+            text-align: center;
+            font-size: 24px;
+            padding-bottom: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+        }
+
+        .review-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        .review-image {
+            width: 250px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-details {
+            width: 50%;
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .review-rating {
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .star {
+            color: #fdd835;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        .review-text {
+            margin-top: 20px;
+        }
+
+        /* Review Form */
+        .review-form {
+            margin-top: 20px;
+        }
+
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .review-form button {
+            background-color: #f7931e;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .review-form button:hover {
+            background-color: #d6831c;
+        }
+
+        /* Popup Menu Styles */
+        .popup-menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* ปรับตามความสูงของ header */
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            width: 200px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        .popup-menu a {
+            display: block;
+            padding: 10px 0;
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .popup-menu a:hover {
+            background-color: #f1f1f1;
+        }
+        .popup-menu.show {
+            display: block;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="/picture/DALL·E 2024-10-21 22.39.01 - A logo design for a dormitory, sized 150x150 pixels, featuring a clean, modern look. The logo incorporates elements of a building or home to represent.webp" alt="Dormitory Room Logo">
+            <nav class="nav">
+                <a href="/home.html">หน้าหลัก</a>
+                <a href="dormitory.html">หอพัก</a>
+                <a href="review.html">รีวิว</a>
+                <a href="report.html">รายงานปัญหา</a>
+            </nav>
+
+        <div class="dropdown">
+            <div class="menu-icon" onclick="togglePopup()"></div>
+            <div class="popup-menu" id="popupMenu">
+                <a href="/profile/profile.html">แก้ไขข้อมูลส่วนตัว</a>
+                <a href="index.html">ออกจากระบบ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Review Section -->
+    <section class="review-section">
+        <h1 class="review-title">รีวิวหอพัก ห้องพัก</h1>
+        
+        <div class="review-content">
+            <div>
+                <img src="https://via.placeholder.com/250" alt="หอพัก" class="review-image">
+                <p class="review-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </p>
+            </div>
+            <div class="review-details">
+                <p class="review-text">รายละเอียดของห้องพักและบริการอื่นๆ จะถูกแสดงในส่วนนี้ เช่น ขนาดห้อง สิ่งอำนวยความสะดวก หรือความสะอาด</p>
+            </div>
+        </div>
+
+        <!-- Review Submission Form -->
+        <div class="review-form">
+            <h2>ส่งรีวิวของคุณ</h2>
+            <input type="text" id="reviewerName" placeholder="ชื่อของคุณ" required>
+            <textarea id="reviewText" placeholder="เขียนรีวิวที่นี่..." required></textarea>
+            <button id="submitReview">ส่งรีวิว</button>
+        </div>
+    </section>
+
+    <script>
+        function togglePopup() {
+            var popupMenu = document.getElementById("popupMenu");
+            var overlay = document.getElementById("overlay");
+
+            // Toggle the popup and overlay visibility
+            popupMenu.classList.toggle("show");
+            overlay.classList.toggle("show");
+        }
+    </script>
+
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
+            authDomain: "project-45ba6.firebaseapp.com",
+            projectId: "project-45ba6",
+            storageBucket: "project-45ba6.appspot.com",
+            messagingSenderId: "358009895608",
+            appId: "1:358009895608:web:bf06f7c690783f4d3d524d",
+            measurementId: "G-SD3GLMJTNZ"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const firestore = firebase.firestore();
+
+        document.getElementById('submitReview').addEventListener('click', function() {
+            const name = document.getElementById('reviewerName').value;
+            const review = document.getElementById('reviewText').value;
+
+            if (name && review) {
+                // Add review data to Firestore
+                firestore.collection('reviews').add({
+                    reviewer: name,
+                    text: review,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    alert('รีวิวถูกส่งเรียบร้อยแล้ว!');
+                    document.getElementById('reviewerName').value = '';
+                    document.getElementById('reviewText').value = '';
+                }).catch((error) => {
+                    console.error('Error submitting review: ', error);
+                });
+            } else {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

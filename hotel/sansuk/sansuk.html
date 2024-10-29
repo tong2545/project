@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>หอพัก - ดูรายละเอียด</title>
@@ -22,15 +23,49 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 8px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
         .header img {
             width: 150px;
         }
 
         .nav {
+            flex-grow: 1;
             display: flex;
             gap: 20px;
+            justify-content: center;
         }
-
+    
         .nav a {
             text-decoration: none;
             color: #000;
@@ -43,9 +78,33 @@
             color: #f7931e;
         }
 
+        /* CSS Hamburger Menu Icon */
         .menu-icon {
             width: 30px;
+            height: 3px;
+            background-color: black;
+            position: relative;
+            display: inline-block;
             cursor: pointer;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            background-color: black;
+            width: 30px;
+            height: 3px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .menu-icon::before {
+            top: -8px;
+        }
+
+        .menu-icon::after {
+            top: 8px;
         }
 
         /* Main Dormitory Section */
@@ -55,6 +114,7 @@
             object-fit: cover;
         }
 
+        /* Gallery Styling */
         .gallery {
             display: flex;
             justify-content: center;
@@ -68,8 +128,82 @@
             object-fit: cover;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Popup Overlay */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Popup Image */
+        .popup-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Amenities Section */
+        .amenities {
+            background-color: #f0f8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .amenities h3 {
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .amenities ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .amenities ul li {
+            text-align: center;
+            width: 80px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .amenities ul li i {
+            font-size: 40px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
         .details-section {
             padding: 20px;
             background-color: #fff;
@@ -87,35 +221,6 @@
         .details-section p {
             color: #666;
             margin-bottom: 20px;
-        }
-
-        /* Amenities Section */
-        .amenities {
-            background-color: #f0f8f0;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .amenities h3 {
-            margin-bottom: 10px;
-        }
-
-        .amenities ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .amenities ul li {
-            text-align: center;
-            width: 100px;
-        }
-
-        .amenities ul li img {
-            width: 40px;
-            margin-bottom: 5px;
         }
 
         /* Pricing Section */
@@ -168,50 +273,47 @@
 
     <!-- Header Section -->
     <header class="header">
-        <img src="https://via.placeholder.com/150" alt="Dormitory Room Logo"> 
-        <!-- logo บนซ้าย -->
+        <img src="/picture/DALL·E 2024-10-21 22.39.01 - A logo design for a dormitory, sized 150x150 pixels, featuring a clean, modern look. The logo incorporates elements of a building or home to represent.webp" alt="Dormitory Room Logo"> 
         <nav class="nav">
             <a href="/home.html">หน้าหลัก</a> 
-            <!-- กดเข้าหน้า home.html -->
             <a href="/domitory/dormitory.html">หอพัก</a> 
-            <!-- กดเข้าหน้า dormitory.html -->
-            <a href="#">รีวิว</a>
-            <a href="#">รายงานปัญหา</a>
+            <a href="/domitory/review.html">รีวิว</a>
+            <a href="/domitory/report.html">รายงานปัญหา</a>
         </nav>
-        <img src="https://via.placeholder.com/30" alt="Menu" class="menu-icon">
-        <!-- logoบนขวา -->
     </header>
 
-    <!-- Banner Section -->
     <section class="banner">
-        <img src="https://via.placeholder.com/1200x300" alt="Dormitory Image">
-        <!-- รูปกลางจอ -->
+        <img src="/picture/sansuk.jpg" alt="Dormitory Image">
     </section>
 
     <!-- Image Gallery -->
     <section class="gallery">
-        <img src="https://via.placeholder.com/120" alt="Dormitory 1">
-        <img src="https://via.placeholder.com/120" alt="Dormitory 2">
-        <img src="https://via.placeholder.com/120" alt="Dormitory 3">
-        <img src="https://via.placeholder.com/120" alt="Dormitory 4">
+        <img src="pic/4ca96b25-c45e-4e18-a7d9-f94f42beb1cb.jpg" alt="Dormitory 1" onclick="openPopup(this.src)">
+        <img src="pic/cc0f7ec5-ccc8-4628-a802-56009b196131.jpg" alt="Dormitory 2" onclick="openPopup(this.src)">
+        <img src="pic/d5e11ce0-50f7-49a1-8ec6-62b9067fe952.jpg" alt="Dormitory 3" onclick="openPopup(this.src)">
+        <img src="pic/38ad8ab1-7208-44ef-8df7-c2c929fd7b0b.jpg" alt="Dormitory 4" onclick="openPopup(this.src)">
     </section>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <img class="popup-image" id="popupImage" src="" alt="Popup Image">
+    </div>
 
     <!-- Dormitory Details Section -->
     <section class="details-section">
         <a href="/home.html" class="back-btn">ย้อนกลับ</a>  
         <h2>ชื่อหอพัก: บ้านแสนสุข</h2>
-        <!-- แก้ชื่อหอตรงนี้ -->
-        <p>ที่อยู่: ถนนมหาวิทยาลัย สงขลา</p>
-        <!-- ชื่อถนนแก้ตรงนี้ -->
+        <p>ที่อยู่: หน้าบ้านกู</p>
 
         <!-- Amenities Section -->
         <div class="amenities">
             <h3>สิ่งอำนวยความสะดวก</h3>
             <ul>
-                <li><img src="https://via.placeholder.com/40" alt="TV"><br>ทีวี</li>
-                <li><img src="https://via.placeholder.com/40" alt="AC"><br>แอร์</li>
-                <li><img src="https://via.placeholder.com/40" alt="Wi-Fi"><br>Wi-Fi ฟรี</li>
-                <li><img src="https://via.placeholder.com/40" alt="Parking"><br>ที่จอดรถ</li>
+                <li><i class="fas fa-tv"></i><br>ทีวี</li>
+                <li><i class="fas fa-wind"></i><br>แอร์</li>
+                <li><i class="fas fa-wifi"></i><br>Wi-Fi ฟรี</li>
+                <li><i class="fas fa-parking"></i><br>ที่จอดรถ</li>
             </ul>
         </div>
 
@@ -223,11 +325,32 @@
                 <li>น้ำ: 100 บาท/เดือน</li>
                 <li>ไฟฟ้า: 5 บาท/ยูนิต</li>
             </ul>
+        </div><br>
+
+        <div class="pricing-section">
+            <h3>ช่องทางการติดต่อ</h3>
+            <ul>
+                <li> ไอดีไลน์ : 1111111111</li>
+                <li> เบอร์โทร : 1111111111</li>
+            </ul>
         </div>
     </section>
 
     <!-- Book Now Button -->
     <a href="jong.html" class="book-btn">จองเลย</a>
+
+    <!-- JavaScript for Popup -->
+    <script>
+        function openPopup(src) {
+            document.getElementById("popupOverlay").style.display = "flex";
+            document.getElementById("popupImage").src = src;
+        }
+
+        function closePopup() {
+            document.getElementById("popupOverlay").style.display = "none";
+            document.getElementById("popupImage").src = "";
+        }
+    </script>
 
 </body>
 </html>

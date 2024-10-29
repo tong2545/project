@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Dormitory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Add this line for box-sizing */
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+        }
+
+        .success-message {
+            color: green;
+            text-align: center;
+        }
+
+        .preview-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>จัดการหอพัก</h1>
+    <div class="form-container">
+        <div class="form-group">
+            <label for="dorm-name">ชื่อหอพัก:</label>
+            <input type="text" id="dorm-name" placeholder="กรุณากรอกชื่อหอพัก">
+        </div>
+        <div class="form-group">
+            <label for="room-count">จำนวนห้อง:</label>
+            <input type="number" id="room-count" placeholder="กรุณากรอกจำนวนห้อง" min="1">
+        </div>
+        <div class="form-group">
+            <label for="dorm-image">อัปโหลดรูปภาพหอพัก:</label>
+            <input type="file" id="dorm-image" accept="image/*">
+        </div>
+        <div class="image-container">
+            <img id="image-preview" class="preview-image" src="" alt="Preview Image" style="display:none;">
+        </div>
+        <button id="add-dorm-btn" class="btn">เพิ่มหอพัก</button>
+        <p class="error-message" id="error-message"></p>
+        <p class="success-message" id="success-message"></p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
+            authDomain: "project-45ba6.firebaseapp.com",
+            projectId: "project-45ba6",
+            storageBucket: "project-45ba6.appspot.com",
+            messagingSenderId: "358009895608",
+            appId: "1:358009895608:web:bf06f7c690783f4d3d524d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        document.getElementById('dorm-image').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('image-preview').src = e.target.result;
+                    document.getElementById('image-preview').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('add-dorm-btn').addEventListener('click', async () => {
+            const dormName = document.getElementById('dorm-name').value;
+            const roomCount = document.getElementById('room-count').value;
+            const dormImageFile = document.getElementById('dorm-image').files[0];
+
+            if (!dormName || roomCount <= 0 || !dormImageFile) {
+                document.getElementById('error-message').textContent = "กรุณากรอกข้อมูลให้ครบถ้วน";
+                document.getElementById('success-message').textContent = "";
+                return;
+            }
+
+            try {
+                // Upload the image to Firebase Storage
+                const storageRef = ref(storage, `dormitory_images/${dormImageFile.name}`);
+                await uploadBytes(storageRef, dormImageFile);
+                const downloadURL = await getDownloadURL(storageRef);
+
+                // Add a new document with a generated ID
+                await addDoc(collection(db, "dormitories"), {
+                    name: dormName,
+                    roomCount: Number(roomCount),
+                    imageUrl: downloadURL
+                });
+                document.getElementById('success-message').textContent = "เพิ่มหอพักเรียบร้อยแล้ว!";
+                document.getElementById('error-message').textContent = "";
+                
+                // Clear inputs
+                document.getElementById('dorm-name').value = '';
+                document.getElementById('room-count').value = '';
+                document.getElementById('dorm-image').value = '';
+                document.getElementById('image-preview').style.display = 'none';
+
+            } catch (error) {
+                document.getElementById('error-message').textContent = "เกิดข้อผิดพลาด: " + error.message;
+                document.getElementById('success-message').textContent = "";
+            }
+        });
+    </script>
+
+</body>
+</html>

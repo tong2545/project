@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงานปัญหา - Dorry Room</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            width: 120px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #f7931e;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block;
+        }
+        
+        /* CSS Hamburger Menu Icon */
+        .menu-icon {
+            width: 30px;
+            height: 3px;
+            background-color: black;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            background-color: black;
+            width: 30px;
+            height: 3px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .menu-icon::before {
+            top: -8px;
+        }
+
+        .menu-icon::after {
+            top: 8px;
+        }
+
+        /* Popup Menu Styles */
+        .popup-menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* ปรับตามความสูงของ header */
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            width: 200px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        .popup-menu a {
+            display: block;
+            padding: 10px 0;
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .popup-menu a:hover {
+            background-color: #f1f1f1;
+        }
+        .popup-menu.show {
+            display: block;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact-section h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .line-button {
+            display: inline-block;
+            background-color: #4267B2;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .line-button:hover {
+            background-color: #365899;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="/picture/DALL·E 2024-10-21 22.39.01 - A logo design for a dormitory, sized 150x150 pixels, featuring a clean, modern look. The logo incorporates elements of a building or home to represent.webp" alt="Dormitory Room Logo">
+        <nav class="nav">
+            <a href="/home.html">หน้าหลัก</a>
+            <a href="dormitory.html">หอพัก</a>
+            <a href="review.html">รีวิว</a>
+            <a href="report.html">รายงานปัญหา</a>
+        </nav>
+
+        <div class="dropdown">
+            <div class="menu-icon" onclick="togglePopup()"></div>
+            <div class="popup-menu" id="popupMenu">
+                <a href="/profile/profile.html">แก้ไขข้อมูลส่วนตัว</a>
+                <a href="index.html">ออกจากระบบ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h1>ติดต่อทีมงาน Dorry Room</h1>
+        <p>Gmail : dorryroom123@gmail.com</p>
+        <p>โทร : 064-784-xxxx</p>
+        <p>061-061-xxxx (จันทร์ - ศุกร์ 9.00 - 18.00 น.)</p>
+        <p>Add Line : @dorryroom123</p>
+        <a href="https://line.me/R/ti/p/%40dorryroom123" class="line-button">Add Line : @dorryroom123</a>
+    </section>
+
+    <script>
+        function togglePopup() {
+            var popupMenu = document.getElementById("popupMenu");
+            var overlay = document.getElementById("overlay");
+
+            // Toggle the popup and overlay visibility
+            popupMenu.classList.toggle("show");
+            overlay.classList.toggle("show");
+        }
+    </script>
+
+</body>
+</html>

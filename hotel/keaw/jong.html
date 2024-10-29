@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หอพัก - จองห้องพัก</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            width: 150px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #f7931e;
+        }
+
+        .menu-icon {
+            width: 30px;
+            cursor: pointer;
+        }
+
+        /* Main Content Section */
+        .content {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Room Grid */
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            justify-items: center;
+        }
+
+        .room-grid button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .available {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .booked {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .pending {
+            background-color: #ffeb3b;
+            color: black;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .legend div {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend span {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .legend .available-box {
+            background-color: #4CAF50;
+        }
+
+        .legend .booked-box {
+            background-color: #f44336;
+        }
+
+        .legend .pending-box {
+            background-color: #ffeb3b;
+        }
+
+        /* Confirmation Button */
+        .confirm-btn {
+            display: block;
+            background-color: #f7931e;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="https://via.placeholder.com/150" alt="Dormitory Room Logo">
+        <nav class="nav">
+            <a href="#">หน้าหลัก</a>
+            <a href="#">หอพัก</a>
+            <a href="#">รีวิว</a>
+            <a href="#">รายงานปัญหา</a>
+        </nav>
+        <img src="https://via.placeholder.com/30" alt="Menu" class="menu-icon">
+    </header>
+
+    <!-- Content Section -->
+    <section class="content">
+        <h2>หอพักสมาร์ทกรุง</h2>
+
+        <!-- Room Grid -->
+        <div class="room-grid">
+            <button class="available">101</button>
+            <button class="booked">102</button>
+            <button class="available">103</button>
+            <button class="available">104</button>
+            <button class="available">105</button>
+            <button class="available">106</button>
+
+            <button class="available">201</button>
+            <button class="booked">202</button>
+            <button class="available">203</button>
+            <button class="booked">204</button>
+            <button class="available">205</button>
+            <button class="available">206</button>
+
+            <button class="available">301</button>
+            <button class="available">302</button>
+            <button class="pending">303</button>
+            <button class="available">304</button>
+            <button class="booked">305</button>
+            <button class="available">306</button>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div><span class="available-box"></span>ห้องว่าง</div>
+            <div><span class="booked-box"></span>ห้องเต็ม</div>
+            <div><span class="pending-box"></span>ห้องกำลังจอง</div>
+        </div>
+
+        <!-- Confirm Button -->
+        <button class="confirm-btn">ยืนยันการจอง</button>
+    </section>
+
+</body>
+</html>

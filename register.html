@@ -101,15 +101,17 @@
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
         // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
-            authDomain: "project-45ba6.firebaseapp.com",
-            projectId: "project-45ba6",
-            storageBucket: "project-45ba6.appspot.com",
-            messagingSenderId: "358009895608",
-            appId: "1:358009895608:web:bf06f7c690783f4d3d524d",
-            measurementId: "G-SD3GLMJTNZ"
-        };
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
+  authDomain: "project-45ba6.firebaseapp.com",
+  databaseURL: "https://project-45ba6-default-rtdb.firebaseio.com",
+  projectId: "project-45ba6",
+  storageBucket: "project-45ba6.appspot.com",
+  messagingSenderId: "358009895608",
+  appId: "1:358009895608:web:bf06f7c690783f4d3d524d",
+  measurementId: "G-SD3GLMJTNZ"
+};
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -130,7 +132,7 @@
                     const user = userCredential.user;
                     alert('Registration successful! You are now registered.');
                     // Redirect or handle after successful registration
-                    window.location.href = 'login.html'; // Redirect to login page or another page
+                    window.location.href = 'home.html'; // Redirect to login page or another page
                 })
                 .catch((error) => {
                     const errorCode = error.code;

@@ -43,9 +43,64 @@
             color: #f7931e;
         }
 
+        /* CSS Hamburger Menu Icon */
         .menu-icon {
             width: 30px;
+            height: 3px;
+            background-color: black;
+            position: relative;
+            display: inline-block;
             cursor: pointer;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            background-color: black;
+            width: 30px;
+            height: 3px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .menu-icon::before {
+            top: -8px;
+        }
+
+        .menu-icon::after {
+            top: 8px;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block;
         }
 
         /* Main Banner Section */
@@ -99,24 +154,49 @@
             cursor: pointer;
         }
 
+        /* Popup Menu Styles */
+        .popup-menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* ปรับตามความสูงของ header */
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            width: 200px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        .popup-menu a {
+            display: block;
+            padding: 10px 0;
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .popup-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
         /* Dormitory List Section */
         .dormitory-list {
             margin: 20px 5%;
         }
 
         .dormitory-item {
-            display: flex;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            overflow: hidden;
+        display: flex;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        overflow: hidden;
         }
 
         .dormitory-item img {
-            width: 150px;
-            height: 100%;
+            width: 120px;
+            height: 100px;
             object-fit: cover;
+            flex-shrink: 0;
         }
 
         .dormitory-content {
@@ -151,6 +231,42 @@
             font-size: 14px;
             color: #999;
         }
+        .popup-menu.show {
+            display: block;
+        }
+
+        /* Main Banner Section */
+    .banner {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        max-height: 300px;
+    }
+
+    .banner-slide {
+        display: flex;
+        transition: transform 1s ease;
+    }
+
+    .banner img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .banner h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 36px;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 10px 20px;
+        border-radius: 10px;
+        z-index: 1;
+    }
+
     </style>
 </head>
 <body>
@@ -161,17 +277,28 @@
         <nav class="nav">
             <a href="home.html">หน้าหลัก</a>
             <a href="domitory/dormitory.html">หอพัก</a>
-            <a href="#">รีวิว</a>
-            <a href="#">รายงานปัญหา</a>
+            <a href="domitory/review.html">รีวิว</a>
+            <a href="/domitory/report.html">รายงานปัญหา</a>
         </nav>
-        <img src="https://via.placeholder.com/30" alt="Menu" class="menu-icon">
+
+        <div class="dropdown">
+            <div class="menu-icon" onclick="togglePopup()"></div>
+            <div class="popup-menu" id="popupMenu">
+                <a href="/profile/profile.html">แก้ไขข้อมูลส่วนตัว</a>
+                <a href="index.html">ออกจากระบบ</a>
+            </div>
+        </div>
     </header>
 
     <!-- Main Banner Section -->
     <section class="banner">
-        <img src="https://via.placeholder.com/1200x300" alt="Banner Image">
-        <h1>ระบบจองหอพัก</h1>
-    </section>
+    <div class="banner-slide">
+        <img src="/picture/4968c1b9-8fc0-4828-8bda-18e027db63a7.jpg" alt="Banner Image 1">
+        <img src="/picture/sansuk.jpg" alt="Banner Image 2">
+        <img src="/picture/smartroom.jpg" alt="Banner Image 3">
+    </div>
+    <h1>ระบบจองหอพัก</h1>
+</section>
 
     <!-- Search Section -->
     <section class="search-section">
@@ -182,7 +309,7 @@
     <!-- Dormitory List Section -->
     <section class="dormitory-list">
         <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 1">
+            <img src="/picture/sansuk.jpg" alt="Dormitory 1">
             <div class="dormitory-content">
                 <h3>หอพัก บ้านแสนสุข</h3>
                 <span class="dormitory-price">450 บาท/คืน</span>
@@ -192,7 +319,7 @@
         </div>
 
         <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 2">
+            <img src="/picture/smartroom.jpg" alt="Dormitory 2">
             <div class="dormitory-content">
                 <h3>หอพัก สมาร์ทรูม</h3>
                 <span class="dormitory-price">15,000 บาท/เทอม</span>
@@ -202,7 +329,7 @@
         </div>
 
         <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 3">
+            <img src="picture/unya.jpg" alt="Dormitory 3">
             <div class="dormitory-content">
                 <h3>หอพัก อัญมณี</h3>
                 <span class="dormitory-price">390 บาท/คืน</span>
@@ -210,43 +337,46 @@
                 <a href="hotel/unya/unya.html" class="btn-view">ดูเพิ่มเติม</a>
             </div>
         </div>
-        <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 3">
-            <div class="dormitory-content">
-                <h3>หอพัก อัญมณี</h3>
-                <span class="dormitory-price">390 บาท/คืน</span>
-                <span class="dormitory-rating">Rating: ⭐⭐⭐⭐</span>
-                <a href="hotel/unya.html" class="btn-view">ดูเพิ่มเติม</a>
-            </div>
-        </div>
-        <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 3">
-            <div class="dormitory-content">
-                <h3>หอพัก อัญมณี</h3>
-                <span class="dormitory-price">390 บาท/คืน</span>
-                <span class="dormitory-rating">Rating: ⭐⭐⭐⭐</span>
-                <a href="hotel/unya.html" class="btn-view">ดูเพิ่มเติม</a>
-            </div>
-        </div>
-        <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 3">
-            <div class="dormitory-content">
-                <h3>หอพัก อัญมณี</h3>
-                <span class="dormitory-price">390 บาท/คืน</span>
-                <span class="dormitory-rating">Rating: ⭐⭐⭐⭐</span>
-                <a href="hotel/unya.html" class="btn-view">ดูเพิ่มเติม</a>
-            </div>
-        </div>
-        <div class="dormitory-item">
-            <img src="https://via.placeholder.com/150x100" alt="Dormitory 3">
-            <div class="dormitory-content">
-                <h3>หอพัก อัญมณี</h3>
-                <span class="dormitory-price">390 บาท/คืน</span>
-                <span class="dormitory-rating">Rating: ⭐⭐⭐⭐</span>
-                <a href="hotel/unya.html" class="btn-view">ดูเพิ่มเติม</a>
-            </div>
-        </div>
     </section>
 
+    <script>
+        function togglePopup() {
+            var popupMenu = document.getElementById("popupMenu");
+            var overlay = document.getElementById("overlay");
+    
+            popupMenu.classList.toggle("show");
+            overlay.classList.toggle("show");
+        }
+        let currentImageIndex = 0;
+        const bannerImages = document.querySelectorAll('.banner img');
+        const totalImages = bannerImages.length;
+
+        function changeBannerImage() {
+        bannerImages[currentImageIndex].classList.remove('active'); // ซ่อนภาพปัจจุบัน
+        currentImageIndex = (currentImageIndex + 1) % totalImages;  // เปลี่ยนไปยังภาพถัดไป
+        bannerImages[currentImageIndex].classList.add('active');    // แสดงภาพใหม่
+        }
+
+    setInterval(changeBannerImage, 3000);
+    
+        // ฟังก์ชันสำหรับค้นหาหอพัก
+        document.querySelector('.search-input').addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const dormitoryItems = document.querySelectorAll('.dormitory-item');
+    
+            dormitoryItems.forEach(item => {
+                const dormitoryName = item.querySelector('h3').textContent.toLowerCase();
+                const dormitoryLocation = item.querySelector('.dormitory-price').textContent.toLowerCase();
+                
+                // แสดงหรือซ่อนรายการตามคำค้นหา
+                if (dormitoryName.includes(searchText) || dormitoryLocation.includes(searchText)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>

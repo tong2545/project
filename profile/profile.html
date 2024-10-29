@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรไฟล์ผู้ใช้</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            width: 120px;
+        }
+
+        .nav-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #f7931e;
+        }
+
+        .menu-icon {
+            width: 30px;
+            cursor: pointer;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .profile-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .profile-container p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .profile-container button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f7931e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile-container button:hover {
+            background-color: #e6891b;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            margin-top: 20px;
+        }
+
+        .confirm-btn {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .confirm-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling for the Profile Page */
+        .profile-banner {
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-banner img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .profile-banner h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 36px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <img src="/picture/DALL·E 2024-10-21 22.39.01 - A logo design for a dormitory, sized 150x150 pixels, featuring a clean, modern look. The logo incorporates elements of a building or home to represent.webp" alt="Dormitory Room Logo">
+        <div class="nav-container">
+            <nav class="nav">
+                <a href="/home.html">หน้าหลัก</a>
+                <a href="/domitory/dormitory.html">หอพัก</a>
+                <a href="/domitory/review.html">รีวิว</a>
+                <a href="/domitory/report.html">รายงานปัญหา</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Profile Banner Section
+    <section class="profile-banner">
+        <img src="https://via.placeholder.com/1200x300" alt="Banner Image">
+        <h1>โปรไฟล์ผู้ใช้</h1>
+    </section> -->
+
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <img id="profile-picture" class="profile-picture" src="https://via.placeholder.com/150" alt="Profile Picture">
+        <input type="file" id="file-input" class="upload-btn">
+        <button id="confirm-upload-btn" class="confirm-btn">ยืนยันการอัปโหลด</button>
+        <h2>ข้อมูลโปรไฟล์</h2>
+        <p><strong>ชื่อ:</strong> <span id="user-name">กำลังโหลด...</span></p>
+        <p><strong>อีเมล:</strong> <span id="user-email">กำลังโหลด...</span></p>
+        <p><strong>ที่อยู่:</strong> <span id="user-address">กำลังโหลด...</span></p>
+        <p><strong>ชื่อจริง:</strong> <span id="user-firstname">กำลังโหลด...</span></p>
+        <p><strong>นามสกุล:</strong> <span id="user-lastname">กำลังโหลด...</span></p>
+        <p><strong>เบอร์โทร:</strong> <span id="user-phone">กำลังโหลด...</span></p>
+        <p><strong>สถานะ:</strong> <span id="user-status">กำลังโหลด...</span></p>
+        <button id="logout-btn">ออกจากระบบ</button>
+        <p class="error-message" id="error-message"></p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfUEKmVKRaVt7q6uqOpORpj3Wu14Kq1zk",
+            authDomain: "project-45ba6.firebaseapp.com",
+            databaseURL: "https://project-45ba6-default-rtdb.firebaseio.com",
+            projectId: "project-45ba6",
+            storageBucket: "project-45ba6.appspot.com",
+            messagingSenderId: "358009895608",
+            appId: "1:358009895608:web:bf06f7c690783f4d3d524d",
+            measurementId: "G-SD3GLMJTNZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const storage = getStorage();
+        const db = getFirestore(app);
+
+        let selectedFile = null;
+
+        function displayUserProfile() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    document.getElementById('user-name').textContent = user.displayName || "ยังไม่ได้ตั้งชื่อ";
+                    document.getElementById('user-email').textContent = user.email;
+
+                    // ดึงข้อมูลเพิ่มเติมจาก Firestore
+                    getUserData(user.uid);
+                    
+                    if (user.photoURL) {
+                        document.getElementById('profile-picture').src = user.photoURL;
+                    }
+                } else {
+                    window.location.href = '/index.html';
+                }
+            });
+        }
+
+        // ฟังก์ชันสำหรับดึงข้อมูลจาก Firestore
+        async function getUserData(uid) {
+            const userDoc = doc(db, "users", uid);
+            const docSnap = await getDoc(userDoc);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                // แสดงข้อมูลที่ดึงมา
+                document.getElementById('user-address').textContent = data.Address || "ไม่มีข้อมูล";
+                document.getElementById('user-firstname').textContent = data.FirstName || "ไม่มีข้อมูล";
+                document.getElementById('user-lastname').textContent = data.LastName || "ไม่มีข้อมูล";
+                document.getElementById('user-phone').textContent = data.Phone || "ไม่มีข้อมูล";
+                document.getElementById('user-status').textContent = data.Status || "ไม่มีข้อมูล";
+            } else {
+                console.log("No such document!");
+            }
+        }
+
+        displayUserProfile();
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = '/index.html';
+            }).catch((error) => {
+                document.getElementById('error-message').textContent = "Error: " + error.message;
+            });
+        });
+
+        // Handle file selection and display confirm button
+        document.getElementById('file-input').addEventListener('change', (event) => {
+            selectedFile = event.target.files[0];
+            if (selectedFile) {
+                document.getElementById('confirm-upload-btn').style.display = 'inline-block';
+            }
+        });
+
+        // Handle profile picture upload
+        document.getElementById('confirm-upload-btn').addEventListener('click', async () => {
+            if (!selectedFile) {
+                document.getElementById('error-message').textContent = "กรุณาเลือกไฟล์ก่อน";
+                return;
+            }
+
+            const user = auth.currentUser;
+            const storageRef = ref(storage, `profile_pictures/${user.uid}.jpg`);
+
+            try {
+                // Upload file to Firebase Storage
+                await uploadBytes(storageRef, selectedFile);
+                const downloadURL = await getDownloadURL(storageRef);
+
+                // Update user profile in Firebase Authentication
+                await updateProfile(user, {
+                    photoURL: downloadURL
+                });
+
+                // Update Firestore with the new photo URL
+                await setDoc(doc(db, "users", user.uid), {
+                    photoURL: downloadURL
+                }, { merge: true });
+
+                // Update profile picture on the page
+                document.getElementById('profile-picture').src = downloadURL;
+                document.getElementById('error-message').textContent = "รูปภาพอัปโหลดเรียบร้อยแล้ว!";
+                document.getElementById('confirm-upload-btn').style.display = 'none';
+
+            } catch (error) {
+                document.getElementById('error-message').textContent = "Error uploading file: " + error.message;
+            }
+        });
+
+    </script>
+
+</body>
+</html>
